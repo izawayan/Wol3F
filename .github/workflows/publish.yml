@@ -1,5 +1,7 @@
+# Arquivo: .github/workflows/publish.yml
 name: Publicar no PyPI
 
+# Só vai rodar quando você publicar uma nova "Release" no GitHub
 on:
   release:
     types: [published]
@@ -28,5 +30,5 @@ jobs:
       - name: Publicar no PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_pypi-AgEIcHlwaS5vcmcCJDZiYzA2OWRhLWJhODMtNDgwZi1iNTA4LWJhYTgwZDQ4ZTM3YgACKlszLCJlZTIxNDZkYi1jOWUwLTRhZjQtOTY2YS0xOTQ1NjcyYThlZDAiXQAABiAPVZ2Ikikk7PTlBtEo2x6MHMRdwHyxNHwQsNC95sdc5g}}
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: twine upload dist/*
