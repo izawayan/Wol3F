@@ -1,0 +1,32 @@
+name: Publicar no PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências de Build
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Construir o pacote
+        run: python -m build
+
+      - name: Publicar no PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_pypi-AgEIcHlwaS5vcmcCJDZiYzA2OWRhLWJhODMtNDgwZi1iNTA4LWJhYTgwZDQ4ZTM3YgACKlszLCJlZTIxNDZkYi1jOWUwLTRhZjQtOTY2YS0xOTQ1NjcyYThlZDAiXQAABiAPVZ2Ikikk7PTlBtEo2x6MHMRdwHyxNHwQsNC95sdc5g}}
+        run: twine upload dist/*
